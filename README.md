@@ -45,6 +45,9 @@ playButton | `render()` | example | Render method for tap to play button
 innerRadius | `Number` | 100 | Set inner radius size
 innerRadius | `Number` | 100 | Set inner radius size
 textAngle | `String` | horizontal | Set angle of reward text
+typeRewards |`[String]` | require | Set type rewards
+sizeIconReward | `Number` | 30 | Icon reward size
+iconRewards | `[Path]` | [knoob.png] | Icon reward source
 
 ## Usage
 ```js
@@ -59,6 +62,18 @@ const participants = [
   '%90',
   'FREE',
 ];
+
+const typeRewards = [
+  'Point',
+  'Gold',
+  'Cash',
+  'Point',
+  'Gold',
+  'Cash',
+  'Point',
+  'Gold',
+  'FREE',
+];
 const wheelOptions = {
       rewards: participants,
       knobSize: 50,
@@ -69,6 +84,9 @@ const wheelOptions = {
       backgroundColor: 'transparent',
       textAngle: 'horizontal',
       knobSource: require('./assets/images/knoob.png'),
+      typeRewards: typeRewards,
+      sizeIconReward: 40,
+      iconRewards: iconRewards,
       getWinner: (value, index) => {
         this.setState({winnerValue: value, winnerIndex: index});
       },
