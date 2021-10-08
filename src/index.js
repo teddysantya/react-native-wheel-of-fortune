@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   View,
   StyleSheet,
@@ -9,11 +9,12 @@ import {
 } from 'react-native';
 import * as d3Shape from 'd3-shape';
 
-import Svg, {G, Text, TSpan, Path, Pattern} from 'react-native-svg';
+import Svg, { G, Text, TSpan, Path, Pattern, SvgCss } from 'react-native-svg';
+import { ImageRender } from 'react-native-wheel-of-fortune/src/imageReward';
 
 const AnimatedSvg = Animated.createAnimatedComponent(Svg);
 
-const {width, height} = Dimensions.get('screen');
+const { width, height } = Dimensions.get('screen');
 
 class WheelOfFortune extends Component {
   constructor(props) {
@@ -23,7 +24,7 @@ class WheelOfFortune extends Component {
       started: false,
       finished: false,
       winner: null,
-      gameScreen: new Animated.Value(width - 40),
+      gameScreen: new Animated.Value(width - 100),
       wheelOpacity: new Animated.Value(1),
       imageLeft: new Animated.Value(width / 2 - 30),
       imageTop: new Animated.Value(height / 2 - 70),
@@ -58,7 +59,7 @@ class WheelOfFortune extends Component {
       started: false,
       finished: false,
       winner: null,
-      gameScreen: new Animated.Value(width - 40),
+      gameScreen: new Animated.Value(width - 100),
       wheelOpacity: new Animated.Value(1),
       imageLeft: new Animated.Value(width / 2 - 30),
       imageTop: new Animated.Value(height / 2 - 70),
@@ -94,22 +95,22 @@ class WheelOfFortune extends Component {
   }
 
   makeWheel = () => {
-    const data = Array.from({length: this.numberOfSegments}).fill(1);
+    const data = Array.from({ length: this.numberOfSegments }).fill(1);
     const arcs = d3Shape.pie()(data);
     var colors = this.props.options.colors
       ? this.props.options.colors
       : [
-          '#E07026',
-          '#E8C22E',
-          '#ABC937',
-          '#4F991D',
-          '#22AFD3',
-          '#5858D0',
-          '#7B48C8',
-          '#D843B9',
-          '#E23B80',
-          '#D82B2B',
-        ];
+        '#E07026',
+        '#E8C22E',
+        '#ABC937',
+        '#4F991D',
+        '#22AFD3',
+        '#5858D0',
+        '#7B48C8',
+        '#D843B9',
+        '#E23B80',
+        '#D82B2B',
+      ];
     return arcs.map((arc, index) => {
       const instance = d3Shape
         .arc()
@@ -157,11 +158,13 @@ class WheelOfFortune extends Component {
         finished: true,
         winner: this._wheelPaths[winnerIndex].value,
       });
+      console.log('winnerIndex', winnerIndex)
       this.props.getWinner(this._wheelPaths[winnerIndex].value, winnerIndex);
     });
   };
 
   _textRender = (x, y, number, i) => (
+
     <Text
       x={x - number.length * 5}
       y={y - 80}
@@ -170,7 +173,98 @@ class WheelOfFortune extends Component {
       }
       textAnchor="middle"
       fontSize={this.fontSize}>
-      {Array.from({length: number.length}).map((_, j) => {
+      {/* {number} */}
+      {Array.from({ length: number.length }).map((_, j) => {
+        // Render reward text vertically
+        if (this.props.options.textAngle === 'vertical') {
+          return (
+            <TSpan x={x} dy={this.fontSize} key={`arc-${i}-slice-${j}`}>
+              {number.charAt(j)}
+
+            </TSpan>
+
+          );
+        }
+        // Render reward text horizontally
+        else {
+          return (
+            <TSpan
+              y={y - 40}
+              dx={this.fontSize * 0.07}
+              key={`arc-${i}-slice-${j}`}>
+              {number.charAt(j)}
+            </TSpan>
+          );
+        }
+      })}
+
+      <ImageRender
+        x={x}
+        y={y}
+        i={i}
+        options={this.props.options}
+      ></ImageRender>
+
+      {/* <Image
+        source={
+          this.props.options.knobSource
+            ? this.props.options.knobSource
+            : require('../assets/images/knob.png')
+        }
+        style={{ 
+          position: 'absolute',
+          top: 10,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          width: 20, 
+          height: 30,
+           backgroundColor: this.props.options.colors[i % this.props.options.colors.length] }}
+      /> */}
+
+      {/* <Text
+        x={x - number.length + 3}
+        y={y - 14}
+        fill={
+          this.props.options.textColor ? this.props.options.textColor : '#fff'
+        }
+        textAnchor="middle"
+        fontSize={this.fontSize - 4}>
+          {this.props.options.typeRewards ? this.props.options.typeRewards[i] : 'cash'}
+         
+
+      </Text> */}
+
+    </Text>
+  );
+
+  //   <Svg
+  //   width={30}
+  //   height={30}
+  //   // viewBox={`0 0 57 100`}
+  //   style={{
+  //     // transform: [{ translateY: 8 }],
+  //   }}>
+  //   <Image
+  //     source={
+  //       this.props.options.knobSource
+  //         ? this.props.options.knobSource
+  //         : require('../assets/images/knob.png')
+  //     }
+  //     style={{ width: 30, height:30 }}
+  //   />
+  // </Svg>
+
+  _textRenderOld = (x, y, number, i) => (
+    <Text
+      x={x - number.length * 5}
+      y={y - 80}
+      fill={
+        this.props.options.textColor ? this.props.options.textColor : '#fff'
+      }
+      textAnchor="middle"
+      fontSize={this.fontSize}>
+      {Array.from({ length: number.length }).map((_, j) => {
         // Render reward text vertically
         if (this.props.options.textAngle === 'vertical') {
           return (
@@ -217,8 +311,8 @@ class WheelOfFortune extends Component {
             backgroundColor: this.props.options.backgroundColor
               ? this.props.options.backgroundColor
               : '#fff',
-            width: width - 20,
-            height: width - 20,
+            width: width - 90,
+            height: width - 90,
             borderRadius: (width - 20) / 2,
             borderWidth: this.props.options.borderWidth
               ? this.props.options.borderWidth
@@ -233,7 +327,7 @@ class WheelOfFortune extends Component {
             height={this.state.gameScreen}
             viewBox={`0 0 ${width} ${width}`}
             style={{
-              transform: [{rotate: `-${this.angleOffset}deg`}],
+              transform: [{ rotate: `-${this.angleOffset}deg` }],
               margin: 10,
             }}>
             <G y={width / 2} x={width / 2}>
@@ -251,6 +345,7 @@ class WheelOfFortune extends Component {
                       }
                       origin={`${x}, ${y}`}>
                       {this._textRender(x, y, number, i)}
+
                     </G>
                   </G>
                 );
@@ -281,6 +376,8 @@ class WheelOfFortune extends Component {
     return (
       <Animated.View
         style={{
+          top: 16,
+          position: 'relative',
           width: knobSize,
           height: knobSize * 2,
           justifyContent: 'flex-end',
@@ -307,7 +404,7 @@ class WheelOfFortune extends Component {
           height={(knobSize * 100) / 57}
           viewBox={`0 0 57 100`}
           style={{
-            transform: [{translateY: 8}],
+            transform: [{ translateY: 8 }],
           }}>
           <Image
             source={
@@ -335,18 +432,19 @@ class WheelOfFortune extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <TouchableOpacity
+        <View
           style={{
             position: 'absolute',
+            top: -100,
             width: width,
             height: height / 2,
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          <Animated.View style={[styles.content, {padding: 10}]}>
+          <Animated.View style={[styles.content, { padding: 10 }]}>
             {this._renderSvgWheel()}
           </Animated.View>
-        </TouchableOpacity>
+        </View>
         {this.props.options.playButton ? this._renderTopToPlay() : null}
       </View>
     );
@@ -367,7 +465,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold',
     textShadowColor: 'rgba(0, 0, 0, 0.4)',
-    textShadowOffset: {width: -1, height: 1},
+    textShadowOffset: { width: -1, height: 1 },
     textShadowRadius: 10,
   },
 });
