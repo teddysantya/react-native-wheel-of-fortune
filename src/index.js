@@ -145,6 +145,10 @@ class WheelOfFortune extends Component {
     this.setState({
       started: true,
     });
+    // console.log('onPress', (365 -
+    //   this.winner * (this.oneTurn / this.numberOfSegments) +
+    //   360 * (duration / 1000)))
+    // console.log('duration', duration)
     Animated.timing(this._angle, {
       toValue:
         365 -
@@ -173,7 +177,6 @@ class WheelOfFortune extends Component {
       }
       textAnchor="middle"
       fontSize={this.fontSize}>
-      {/* {number} */}
       {Array.from({ length: number.length }).map((_, j) => {
         // Render reward text vertically
         if (this.props.options.textAngle === 'vertical') {
@@ -205,23 +208,6 @@ class WheelOfFortune extends Component {
         options={this.props.options}
       ></ImageRender>
 
-      {/* <Image
-        source={
-          this.props.options.knobSource
-            ? this.props.options.knobSource
-            : require('../assets/images/knob.png')
-        }
-        style={{ 
-          position: 'absolute',
-          top: 10,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          width: 20, 
-          height: 30,
-           backgroundColor: this.props.options.colors[i % this.props.options.colors.length] }}
-      /> */}
-
       {/* <Text
         x={x - number.length + 3}
         y={y - 14}
@@ -237,23 +223,6 @@ class WheelOfFortune extends Component {
 
     </Text>
   );
-
-  //   <Svg
-  //   width={30}
-  //   height={30}
-  //   // viewBox={`0 0 57 100`}
-  //   style={{
-  //     // transform: [{ translateY: 8 }],
-  //   }}>
-  //   <Image
-  //     source={
-  //       this.props.options.knobSource
-  //         ? this.props.options.knobSource
-  //         : require('../assets/images/knob.png')
-  //     }
-  //     style={{ width: 30, height:30 }}
-  //   />
-  // </Svg>
 
   _textRenderOld = (x, y, number, i) => (
     <Text
