@@ -21,6 +21,21 @@ const participants = [
   '%90',
   'FREE',
 ];
+
+const iconRewards = [
+  require('./knob.png'),
+  require('./knob.png'),
+  require('./knob.png'),
+  require('./knob.png'),
+  require('./knob.png'),
+  require('./knob.png'),
+  require('./knob.png'),
+  require('./knob.png'),
+  require('./knob.png'),
+  require('./knob.png'),
+  
+];
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -48,20 +63,25 @@ class App extends Component {
       borderColor: '#fff',
       innerRadius: 30,
       duration: 6000,
-      backgroundColor: 'transparent',
-      textAngle: 'horizontal',
       knobSource: require('./knob.png'),
+      borderColor: '#E3A85E',
+      backgroundColor: 'red',
+      sizeIconReward: 40,
+      iconRewards: iconRewards,
       onRef: ref => (this.child = ref),
     };
     return (
       <View style={styles.container}>
         <StatusBar barStyle={'light-content'} />
+        <View style={{marginTop: 200}}>
         <WheelOfFortune
           options={wheelOptions}
           getWinner={(value, index) => {
             this.setState({winnerValue: value, winnerIndex: index});
           }}
         />
+        </View>
+       
         {!this.state.started && (
           <View style={styles.startButtonView}>
             <TouchableOpacity
