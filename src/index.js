@@ -192,7 +192,7 @@ class WheelOfFortune extends Component {
         else {
           return (
             <TSpan
-              y={y - 40}
+              y={y + 20}
               dx={this.fontSize * 0.07}
               key={`arc-${i}-slice-${j}`}>
               {number.charAt(j)}
@@ -203,7 +203,7 @@ class WheelOfFortune extends Component {
 
       <ImageRender
         x={x}
-        y={y}
+        y={y - 40}
         i={i}
         options={this.props.options}
       ></ImageRender>
