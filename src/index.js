@@ -321,6 +321,7 @@ class WheelOfFortune extends Component {
               })}
             </G>
           </AnimatedSvg>
+          { this.props.children }
         </Animated.View>
       </View>
     );
