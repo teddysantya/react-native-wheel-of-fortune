@@ -24,7 +24,7 @@ class WheelOfFortune extends Component {
       started: false,
       finished: false,
       winner: null,
-      gameScreen: new Animated.Value(width - 24),
+      gameScreen: new Animated.Value(width - 100),
       wheelOpacity: new Animated.Value(1),
       imageLeft: new Animated.Value(width / 2 - 30),
       imageTop: new Animated.Value(height / 2 - 70),
@@ -39,7 +39,7 @@ class WheelOfFortune extends Component {
     this.RewardCount = this.Rewards.length;
 
     this.numberOfSegments = this.RewardCount;
-    this.fontSize = 24;
+    this.fontSize = 20;
     this.oneTurn = 360;
     this.angleBySegment = this.oneTurn / this.numberOfSegments;
     this.angleOffset = this.angleBySegment / 2;
@@ -59,7 +59,7 @@ class WheelOfFortune extends Component {
       started: false,
       finished: false,
       winner: null,
-      gameScreen: new Animated.Value(width - 24),
+      gameScreen: new Animated.Value(width - 100),
       wheelOpacity: new Animated.Value(1),
       imageLeft: new Animated.Value(width / 2 - 30),
       imageTop: new Animated.Value(height / 2 - 70),
@@ -162,6 +162,7 @@ class WheelOfFortune extends Component {
         finished: true,
         winner: this._wheelPaths[winnerIndex].value,
       });
+      console.log('winnerIndex', winnerIndex)
       this.props.getWinner(this._wheelPaths[winnerIndex].value, winnerIndex);
     });
   };
@@ -174,7 +175,6 @@ class WheelOfFortune extends Component {
       fill={
         this.props.options.textColor ? this.props.options.textColor : '#fff'
       }
-      fontWeight="bold"
       textAnchor="middle"
       fontSize={this.fontSize}>
       {Array.from({ length: number.length }).map((_, j) => {
@@ -280,8 +280,8 @@ class WheelOfFortune extends Component {
             backgroundColor: this.props.options.backgroundColor
               ? this.props.options.backgroundColor
               : '#fff',
-            width: width - 16,
-            height: width - 16,
+            width: width - 90,
+            height: width - 90,
             borderRadius: (width - 20) / 2,
             borderWidth: this.props.options.borderWidth
               ? this.props.options.borderWidth
@@ -404,6 +404,7 @@ class WheelOfFortune extends Component {
         <View
           style={{
             position: 'absolute',
+            top: -16,
             width: width,
             height: height / 2,
             justifyContent: 'center',
@@ -413,11 +414,7 @@ class WheelOfFortune extends Component {
             {this._renderSvgWheel()}
           </Animated.View>
         </View>
-        <View style={{}}>
-
-        { this.props.children }
-        </View>
-        {/* {this.props.options.playButton ? this._renderTopToPlay() : null} */}
+          { this.props.children }
       </View>
     );
   }
