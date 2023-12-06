@@ -404,7 +404,6 @@ class WheelOfFortune extends Component {
         <View
           style={{
             position: 'absolute',
-            top: -16,
             width: width,
             height: height / 2,
             justifyContent: 'center',
