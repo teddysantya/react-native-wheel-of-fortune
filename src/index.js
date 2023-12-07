@@ -24,7 +24,7 @@ class WheelOfFortune extends Component {
       started: false,
       finished: false,
       winner: null,
-      gameScreen: new Animated.Value(width - 100),
+      gameScreen: new Animated.Value(width - 40),
       wheelOpacity: new Animated.Value(1),
       imageLeft: new Animated.Value(width / 2 - 30),
       imageTop: new Animated.Value(height / 2 - 70),
@@ -39,7 +39,7 @@ class WheelOfFortune extends Component {
     this.RewardCount = this.Rewards.length;
 
     this.numberOfSegments = this.RewardCount;
-    this.fontSize = 20;
+    this.fontSize = 24;
     this.oneTurn = 360;
     this.angleBySegment = this.oneTurn / this.numberOfSegments;
     this.angleOffset = this.angleBySegment / 2;
@@ -59,7 +59,7 @@ class WheelOfFortune extends Component {
       started: false,
       finished: false,
       winner: null,
-      gameScreen: new Animated.Value(width - 100),
+      gameScreen: new Animated.Value(width - 20),
       wheelOpacity: new Animated.Value(1),
       imageLeft: new Animated.Value(width / 2 - 30),
       imageTop: new Animated.Value(height / 2 - 70),
@@ -167,6 +167,29 @@ class WheelOfFortune extends Component {
     });
   };
 
+  _textAndImageRender = (x, y, number, i) => (
+    <View>
+      
+      <Text
+        x={x}
+        y={y + 15}
+        fill={
+          this.props.options.textColor ? this.props.options.textColor : '#fff'
+        }
+        textAnchor="middle"
+        fontSize={this.fontSize - 4}>
+          {this.props.options.rewards ? this.props.options.rewards[i] : 'cash'}
+         <ImageRender
+        x={x}
+        y={y - 40}
+        i={i}
+        options={this.props.options}
+      ></ImageRender>
+
+      </Text>
+    </View>
+  )
+
   _textRender = (x, y, number, i) => (
 
     <Text
@@ -201,14 +224,7 @@ class WheelOfFortune extends Component {
         }
       })}
 
-      <ImageRender
-        x={x}
-        y={y - 40}
-        i={i}
-        options={this.props.options}
-      ></ImageRender>
-
-      {/* <Text
+      <Text
         x={x - number.length + 3}
         y={y - 14}
         fill={
@@ -219,7 +235,7 @@ class WheelOfFortune extends Component {
           {this.props.options.typeRewards ? this.props.options.typeRewards[i] : 'cash'}
          
 
-      </Text> */}
+      </Text>
 
     </Text>
   );
@@ -280,8 +296,8 @@ class WheelOfFortune extends Component {
             backgroundColor: this.props.options.backgroundColor
               ? this.props.options.backgroundColor
               : '#fff',
-            width: width - 90,
-            height: width - 90,
+            width: width - 30,
+            height: width - 30,
             borderRadius: (width - 20) / 2,
             borderWidth: this.props.options.borderWidth
               ? this.props.options.borderWidth
@@ -313,7 +329,7 @@ class WheelOfFortune extends Component {
                         this.angleOffset
                       }
                       origin={`${x}, ${y}`}>
-                      {this._textRender(x, y, number, i)}
+                      {this._textAndImageRender(x, y, number, i)}
 
                     </G>
                   </G>
