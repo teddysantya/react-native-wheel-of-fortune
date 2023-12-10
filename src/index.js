@@ -39,7 +39,7 @@ class WheelOfFortune extends Component {
     this.RewardCount = this.Rewards.length;
 
     this.numberOfSegments = this.RewardCount;
-    this.fontSize = 24;
+    this.fontSize = 20;
     this.oneTurn = 360;
     this.angleBySegment = this.oneTurn / this.numberOfSegments;
     this.angleOffset = this.angleBySegment / 2;
@@ -100,12 +100,12 @@ class WheelOfFortune extends Component {
     var colors = this.props.options.colors
       ? this.props.options.colors
       : [
-        '#E07026',
-        '#E8C22E',
-        '#ABC937',
-        '#4F991D',
-        '#22AFD3',
-        '#5858D0',
+        '#574FA2',
+        '#33BDB3',
+        '#F6871D',
+        '#61C8F5',
+        '#FAC4B4',
+        '#F26E6A',
         '#7B48C8',
         '#D843B9',
         '#E23B80',
@@ -175,15 +175,31 @@ class WheelOfFortune extends Component {
         this.props.options.textColor ? this.props.options.textColor : '#fff'
       }
       textAnchor="middle"
+      fontWeight="bold"
       fontSize={this.fontSize - 4}>
-      {this.props.options.rewards ? this.props.options.rewards[i] : 'cash'}
+      {this.props.options.rewards ? this.props.options.rewards[i].pivot.title_1 : 'cash'}
       <ImageRender
         x={x}
         y={y - 40}
         i={i}
         options={this.props.options}
       ></ImageRender>
-
+      <Text
+      x={x}
+      y={y + 35}
+      fontWeight="normal"
+      fontSize={this.fontSize - 4}
+      >
+      {this.props.options.rewards ? this.props.options.rewards[i].pivot.title_2 : ''}
+      </Text>
+      <Text
+      x={x}
+      y={y + 50}
+      fontWeight="normal"
+      fontSize={this.fontSize - 8}
+      >
+      {this.props.options.rewards ? this.props.options.rewards[i].pivot.title_3 : ''}
+      </Text>
     </Text>
   )
 
