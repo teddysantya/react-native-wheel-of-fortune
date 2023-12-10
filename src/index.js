@@ -168,26 +168,23 @@ class WheelOfFortune extends Component {
   };
 
   _textAndImageRender = (x, y, number, i) => (
-    <View>
-      
-      <Text
-        x={x}
-        y={y + 15}
-        fill={
-          this.props.options.textColor ? this.props.options.textColor : '#fff'
-        }
-        textAnchor="middle"
-        fontSize={this.fontSize - 4}>
-          {this.props.options.rewards ? this.props.options.rewards[i] : 'cash'}
-         <ImageRender
+    <Text
+      x={x}
+      y={y + 15}
+      fill={
+        this.props.options.textColor ? this.props.options.textColor : '#fff'
+      }
+      textAnchor="middle"
+      fontSize={this.fontSize - 4}>
+      {this.props.options.rewards ? this.props.options.rewards[i] : 'cash'}
+      <ImageRender
         x={x}
         y={y - 40}
         i={i}
         options={this.props.options}
       ></ImageRender>
 
-      </Text>
-    </View>
+    </Text>
   )
 
   _textRender = (x, y, number, i) => (
@@ -232,8 +229,8 @@ class WheelOfFortune extends Component {
         }
         textAnchor="middle"
         fontSize={this.fontSize - 4}>
-          {this.props.options.typeRewards ? this.props.options.typeRewards[i] : 'cash'}
-         
+        {this.props.options.typeRewards ? this.props.options.typeRewards[i] : 'cash'}
+
 
       </Text>
 
@@ -429,7 +426,7 @@ class WheelOfFortune extends Component {
             {this._renderSvgWheel()}
           </Animated.View>
         </View>
-          { this.props.children }
+        {this.props.children}
       </View>
     );
   }
